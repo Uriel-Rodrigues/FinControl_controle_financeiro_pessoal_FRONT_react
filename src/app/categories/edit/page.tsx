@@ -2,6 +2,7 @@
 //importar instancia de conecção com a api
 import instance from "@/services/api";
 import {useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 //importa hooks do react para usar o estado e os efeitos colaterais
 import { useState ,useEffect } from "react";
 //importar biblioteca de validação de formulario
@@ -28,7 +29,7 @@ const schema = yup.object().shape({
     type: yup.string().required("tipo da categoria é obrigatorio!")
 })
 
-export default function categories() {
+function CategoriesEdit() {
     //estado para pegar dados da URL
     const id = Number(useSearchParams().get("id"))
     //estado para controle de loadig
@@ -211,5 +212,12 @@ export default function categories() {
                 </main>
             )}
         </Layout>
+    )
+}
+export default function CategoriesEditPage() {
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <CategoriesEdit />
+        </Suspense>
     )
 }

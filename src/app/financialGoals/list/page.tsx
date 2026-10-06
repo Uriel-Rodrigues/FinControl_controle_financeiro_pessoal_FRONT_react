@@ -38,7 +38,14 @@ export default function FinancialGoals() {
     const [currentPage, setCurrentPage] = useState <number> (1)
     //estado para controle da ultima pagina
     const [lastPage, setLastPage] = useState <number> (3)
-
+    
+    console.log("===== COMPONENTE ORIGINAL RENDER =====", {
+    currentPage,
+    loading,
+    financialGoals: financialGoals.length,
+    error,
+    success
+    })
     //função de requisição de captura de dados para a API
     const fetchFinancialGoals = async (page:number) => {
         try {
@@ -67,6 +74,7 @@ export default function FinancialGoals() {
 
     //hook para obter dados da primeira renderização 
     useEffect(() => {
+        console.log("===== EFFECT EXECUTADO =====", currentPage)
         //recuperar mensagem sessionStorage
         const message = sessionStorage.getItem("successMessage")
         if (message) {
@@ -77,11 +85,11 @@ export default function FinancialGoals() {
     },[currentPage])
 
     // função para controlar a mudança de pagina
-    const handlePageChange = (page:number) =>{
-        if(page >= 1 && page <=lastPage){
-            setCurrentPage(page)
-        }
-    }
+    // const handlePageChange = (page:number) =>{
+    //     if(page >= 1 && page <=lastPage){
+    //         setCurrentPage(page)
+    //     }
+    // }
 
     return (
         <Layout>

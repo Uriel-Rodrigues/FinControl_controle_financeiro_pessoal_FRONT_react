@@ -3,7 +3,7 @@
 import instance from "@/services/api";
 import {useSearchParams } from "next/navigation";
 //importa hooks do react para usar o estado e os efeitos colaterais
-import { useState} from "react";
+import { useState, Suspense} from "react";
 //importar biblioteca de validação de formulario
 import * as yup from "yup"
 //importar o adaptador para conectar react-hook-form com bibliotecas de validação como yup
@@ -31,7 +31,7 @@ interface User {
     confirmPassword: string
 }
 
-export default function User () {
+function User () {
     //pegar dados enviados pela URL
     const id = Number(useSearchParams().get("id"))
     //estado para controle de loading
@@ -184,5 +184,12 @@ export default function User () {
                 </main>
             )}
         </Layout>
+    )
+}
+export default function UserPage() {
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <User />
+        </Suspense>
     )
 }

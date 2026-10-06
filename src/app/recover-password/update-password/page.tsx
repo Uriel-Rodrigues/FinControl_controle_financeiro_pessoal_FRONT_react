@@ -1,6 +1,6 @@
 'use client'
 //importa hooks do react para usar o estado e os efeitos colaterais
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, Suspense} from "react";
 //importar o adaptador para conectar react-hook-form com bibliotecas de validação como yup
 import { yupResolver } from "@hookform/resolvers/yup";
 //imporar função para gerenciar o formulario
@@ -22,7 +22,7 @@ const schema = yup.object().shape({
     password:yup.string().required("o campo senha é obrigatorio!")
 })
 
-export default function updatePassword () {
+function UpdatePassword  () {
     //instanciar o objeto router
     const router = useRouter()
     //instanciar o objeto para capturar os parametros da URL
@@ -167,4 +167,11 @@ export default function updatePassword () {
         </div>
     )
    
+}
+export default function UpdatePasswordPage() {
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <UpdatePassword />
+        </Suspense>
+    )
 }

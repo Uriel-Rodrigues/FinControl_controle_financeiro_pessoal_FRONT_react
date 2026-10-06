@@ -3,7 +3,7 @@
 import instance from "@/services/api";
 import {useSearchParams } from "next/navigation";
 //importa hooks do react para usar o estado e os efeitos colaterais
-import { useState ,useEffect } from "react";
+import { useState ,useEffect, Suspense } from "react";
 //importar biblioteca de validação de formulario
 import * as yup from "yup"
 //importar o adaptador para conectar react-hook-form com bibliotecas de validação como yup
@@ -16,6 +16,7 @@ import Layout from "@/app/components/layout";
 import AlertMessage from "@/app/components/alertMessage";
 //importar componente de spinner de loading
 import LoadingSpinner from "@/app/components/loadinSpinner";
+import { clearScreenDown } from "readline";
 
 
 interface Financial{
@@ -38,7 +39,7 @@ const schema = yup.object().shape({
     usersId: yup.number().required()
 })
 
-export default function FinancialGoals() {
+function FinancialGoalsEdit() {
     // estado para aemazenar o ID  quem pela URL
     const id = Number(useSearchParams().get("id"))
     //estado para controle de loadig
@@ -285,5 +286,12 @@ export default function FinancialGoals() {
                 </main>
             )}
         </Layout>
+    )
+}
+export default function FinancialGoalsEditPage() {
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <FinancialGoalsEdit />
+        </Suspense>
     )
 }

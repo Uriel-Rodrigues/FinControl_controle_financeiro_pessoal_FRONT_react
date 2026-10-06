@@ -3,7 +3,7 @@
 import instance from "@/services/api";
 import {useParams, useSearchParams } from "next/navigation";
 //importa hooks do react para usar o estado e os efeitos colaterais
-import { useState ,useEffect } from "react";
+import { useState ,useEffect, Suspense } from "react";
 //importar biblioteca de validação de formulario
 import * as yup from "yup"
 //importar o adaptador para conectar react-hook-form com bibliotecas de validação como yup
@@ -33,7 +33,7 @@ const schema = yup.object().shape({
     observations: yup.string().notRequired(),
 })
 
-export default function Transactions() {
+function Transactions() {
     //estado para pegar dados que vem pela URL
     const id = Number(useSearchParams().get("id"))
     //estado para controle de loading
@@ -252,5 +252,12 @@ export default function Transactions() {
                 </main>
             )}
         </Layout>
+    )
+}
+export default function TransactionsPage() {
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <Transactions />
+        </Suspense>
     )
 }
