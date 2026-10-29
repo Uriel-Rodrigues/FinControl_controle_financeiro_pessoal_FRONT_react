@@ -2,7 +2,7 @@
 //importar instancia de conecção com a api
 import instance from "@/services/api";
 //importa hooks do react para usar o estado e os efeitos colaterais
-import { useState ,useEffect } from "react";
+import { useState ,useEffect, Suspense } from "react";
 //importar componente de paginação
 import Pagination from "@/app/components/pagination";
 //importar biblioteca para criar links para navegção
@@ -22,7 +22,7 @@ interface User {
     email: string,
 }
 
-export default function UserList() {
+function UserList() {
     //criar estado para armazenar dados do usuario 
     const [user, setUser] = useState <User[]> ([])
     //estado para controle de carregamento 
@@ -136,5 +136,13 @@ export default function UserList() {
             />
 
         </ProtectedRoute>
+    )
+}
+
+export default function UserListPage() {
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <UserList />
+        </Suspense>
     )
 }

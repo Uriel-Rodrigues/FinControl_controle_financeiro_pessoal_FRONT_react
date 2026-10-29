@@ -4,7 +4,7 @@ import axios, { AxiosInstance } from "axios";
 //definir o tipo para a instancia do axios
 //criar uma instancia personalizada do axios com configuração padrão 
 const instance: AxiosInstance = axios.create({
-    baseURL: "http://localhost:8080", // dfinir url bae ára todas asrequisições
+    baseURL: "https://fincontrol-controle-financeiro-pessoal.onrender.com", // dfinir url bae ára todas asrequisições
     headers: {
         "Content-Type": "application/json", //definir cabeçalho padrão para envio de dados no formato json
     }

@@ -2,7 +2,7 @@
 //importar instancia de conecção com a api
 import instance from "@/services/api";
 //importa hooks do react para usar o estado e os efeitos colaterais
-import { useState ,useEffect } from "react";
+import { useState ,useEffect, Suspense } from "react";
 //importar componente de paginação
 import Pagination from "@/app/components/pagination";
 import Link from "next/link";
@@ -21,7 +21,7 @@ interface Transactions {
     observations: string
 }
 
-export default function Transaction (){
+function Transaction (){
     // estado para armazenar dados de transação
     const [transaction, setTransaction] = useState <Transactions[]> ([])
     //estado para controle de carregamento 
@@ -174,5 +174,13 @@ export default function Transaction (){
             )}
 
         </Layout>
+    )
+}
+
+export default function TransactionPage() {
+    return (
+        <Suspense fallback = {<LoadingSpinner />}>
+            <Transaction />
+        </Suspense>
     )
 }

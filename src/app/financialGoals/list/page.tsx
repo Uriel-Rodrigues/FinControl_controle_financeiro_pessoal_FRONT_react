@@ -2,7 +2,7 @@
 //importar instancia de conecção com a api
 import instance from "@/services/api";
 //importa hooks do react para usar o estado e os efeitos colaterais
-import { useState ,useEffect } from "react";
+import { useState ,useEffect, Suspense } from "react";
 //importar componente de paginação
 import Pagination from "@/app/components/pagination";
 // importar biblioteca para incluir links
@@ -25,7 +25,7 @@ interface Financial {
     usersId: number
 }
 
-export default function FinancialGoals() {
+function FinancialGoals () {
     //estado para armazenar dados das metas
     const [financialGoals, setFiancialGoals] = useState <Financial[]> ([])
     //estado para controle de loading
@@ -39,13 +39,6 @@ export default function FinancialGoals() {
     //estado para controle da ultima pagina
     const [lastPage, setLastPage] = useState <number> (3)
     
-    console.log("===== COMPONENTE ORIGINAL RENDER =====", {
-    currentPage,
-    loading,
-    financialGoals: financialGoals.length,
-    error,
-    success
-    })
     //função de requisição de captura de dados para a API
     const fetchFinancialGoals = async (page:number) => {
         try {
@@ -187,5 +180,13 @@ export default function FinancialGoals() {
                 </main>
             )}
         </Layout>
+    )
+}
+
+export default function FinancialGoalsPage(){
+    return (
+        <Suspense fallback= {<LoadingSpinner />}>
+            <FinancialGoals />
+        </Suspense>
     )
 }

@@ -2,7 +2,7 @@
 //importar instancia de conecção com a api
 import instance from "@/services/api";
 //importa hooks do react para usar o estado e os efeitos colaterais
-import { useState ,useEffect } from "react";
+import { useState ,useEffect, Suspense } from "react";
 //importar componente de paginação
 import Pagination from "@/app/components/pagination";
 //importar biblioteca para links
@@ -22,7 +22,7 @@ interface Category{
     userId: number
 }
 
-export default function Categories(){
+function Categories(){
     //estado para receber dados da entidade
     const [categories, setCategories] = useState <Category[]> ([])    
     //estado para controle de loading
@@ -165,5 +165,13 @@ export default function Categories(){
                 </main>
             )}
         </Layout>
+    )
+}
+
+export default function CategoriesPage() {
+    return (
+        <Suspense fallback = {<LoadingSpinner />}>
+            <Categories />
+        </Suspense>
     )
 }
