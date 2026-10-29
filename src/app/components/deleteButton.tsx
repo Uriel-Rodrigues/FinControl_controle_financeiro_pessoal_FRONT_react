@@ -53,7 +53,7 @@ export default function DeleteButton({id, route, onSuccess, setError, setSuccess
     }
     return (
         <div>
-            <button onClick={handleDelete} disabled = {loading} className="btn-danger hidden md:flex items-center space-x-1">
+            <button onClick={handleDelete} disabled = {loading} className="btn-danger md:flex items-center space-x-1">
                 {loading?"Excluindo..." : "Apagar"}
             </button>
         </div>
